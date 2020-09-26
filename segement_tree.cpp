@@ -25,7 +25,6 @@ const ll N=5e5+6;
 ll seg[4*N];
 void build(ll s,ll e,ll idx,ll a[]){
     if(s==e){
-       //cout<<s<<" ";
        seg[idx]=a[s];
        return;
     }
