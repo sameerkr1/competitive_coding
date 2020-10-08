@@ -24,9 +24,9 @@ using namespace __gnu_pbds;
 #define pii pair<ll,ll>
 const ll N=1e6+5;
 ll prime[N];
-void is_prime(){
+void is_prime(){    // complexity Nlog(logN)
    prime[0]=1;
-   prime[1]=1;
+   prime[1]=1; 
    for(ll i=2;i*i<=N;i++){
       if(!prime[i]){
          for(ll j=i*i;j<=N;j+=i)prime[j]=1;
