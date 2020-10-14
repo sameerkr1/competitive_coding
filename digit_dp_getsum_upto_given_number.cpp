@@ -23,11 +23,16 @@ using namespace __gnu_pbds;
 #define con continue
 #define pii pair<ll,ll>
 const ll N=1e5+3;
-ll getsum(ll pos,ll n,ll sum){
+ll arr[N];
+ll getsum(ll pos,ll n,ll sum,bool flag){
    if(pos>n)return sum;
-   ll res=0;
-   for(ll i=0;i<=9;i++){
-      res+=getsum(pos+1,n,sum+i);
+
+   ll res=0,limit=9;
+   if(!flag)limit=arr[pos];
+
+   for(ll i=0;i<=limit;i++){
+      if(flag||limit>i)res+=getsum(pos+1,n,sum+i,true);
+      else res+=getsum(pos+1,n,sum+i,false);
    }
    return res;
 }
@@ -36,7 +41,10 @@ signed main(){
     ll tt=1;
     cin>>tt;
     while(tt--){
-       ll n;cin>>n;
-       cout<<getsum(1,n,0)<<"\n";
+       string s;cin>>s;
+       for(ll i=0;i<s.size();i++){
+          arr[i+1]=s[i]-'0';
+       }
+       cout<<getsum(1,s.size(),0,0)<<"\n";
     }
 }
