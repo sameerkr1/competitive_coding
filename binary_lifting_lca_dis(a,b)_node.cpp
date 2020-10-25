@@ -22,21 +22,22 @@ using namespace __gnu_pbds;
 #define gcd __gcd
 #define con continue
 #define pii pair<ll,ll>
-const ll N=3e5+5,MaxN=30;
+const ll N=2e5+5,MaxN=18;
 ll par[N][MaxN],dis[N];
- 
-void dfs(ll src,ll p,map<ll,vector<ll>>&mm){
+ll vis[N];
+vector<ll>mm[N];
+
+void dfs(ll src,ll p){
     par[src][0]=p;
     for(auto x:mm[src]){
        if(x!=p){
-          dfs(x,src,mm);
+          dfs(x,src);
        }
     }
 }
-void bfs(map<ll,vector<ll>>&mm,ll src){
+void bfs(ll src){
     queue<ll>qq;
     qq.push(src);
-    vector<ll>vis(N,0);
     vis[src]=1;
     while(!qq.empty()){
        ll ele=qq.front();
@@ -50,15 +51,15 @@ void bfs(map<ll,vector<ll>>&mm,ll src){
        }
     }return;
 }
-void init(map<ll,vector<ll>>&mm){
- 
+void init(){
+
     for(ll j=0;j<MaxN;j++){
        for(ll i=0;i<N;i++)par[i][j]=-1;   // intializing with -1 to Maxn X N table
     }
- 
-    dfs(1,-1,mm);
-    bfs(mm,1);    // for distance
- 
+
+    dfs(1,-1);
+    bfs(1);    // for distance
+
     for(ll j=1;j<MaxN;j++){
        for(ll i=1;i<N;i++){
           if(par[i][j-1]!=-1){
@@ -81,7 +82,6 @@ ll lca(ll a,ll b){
        if(par[a][i]!=-1&&par[a][i]!=par[b][i]){
           a=par[a][i];
           b=par[b][i];
-          //break;
        }
     }
     return par[a][0];
@@ -92,17 +92,16 @@ signed main(){
     //cin>>tt;
     while(tt--){
         ll n,q;cin>>n>>q;
-        ll a[n+1];
-        map<ll,vector<ll>>mm;
-        for(ll i=2;i<=n;i++){
-           ll x;cin>>x;
-           mm[x].pb(i);
-           mm[i].pb(x);
-        }
-        init(mm);
-        while(q--){
+        for(ll i=1;i<n;i++){
            ll a,b;cin>>a>>b;
-           cout<<lca(a,b)<<"\n";
+           mm[a].pb(b);
+           mm[b].pb(a);
+        }
+        init();
+        while(q--){
+           ll a,b,ans;cin>>a>>b;
+           ans=dis[a]+dis[b]-2*dis[lca(a,b)];
+           cout<<ans<<"\n";
         }
     }
 }
