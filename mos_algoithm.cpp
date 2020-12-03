@@ -22,7 +22,7 @@ using namespace __gnu_pbds;
 #define con continue
 #define pii pair<ll,ll>
 const ll BLK=1e3,N=1e6+5;
-ll fre[N],cnt=0,a[N],b[N],k;
+ll fre[N],cnt=0,a[N],b[N];
 struct query{
    ll l,r,id;
 };
@@ -33,10 +33,10 @@ bool comp(query a,query b){
 }
 void add(ll pos){
    fre[a[pos]]++;
-   if(fre[a[pos]]==k)cnt++;
+   if(fre[a[pos]]==1)cnt++;
 }
 void rem(ll pos){
-   if(fre[a[pos]]==k)cnt--;
+   if(fre[a[pos]]==0)cnt--;
    fre[a[pos]]--;
 }
 signed main(){
@@ -44,7 +44,7 @@ signed main(){
     ll tt=1;
     cin>>tt;
     while(tt--){
-        ll n,q;cin>>n>>q>>k;
+        ll n,q;cin>>n>>q;
         cnt=0;
         memset(fre,0,sizeof(fre));
         for(ll i=0;i<n;i++){
