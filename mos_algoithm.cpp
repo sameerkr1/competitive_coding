@@ -36,8 +36,8 @@ void add(ll pos){
    if(fre[a[pos]]==1)cnt++;
 }
 void rem(ll pos){
-   if(fre[a[pos]]==0)cnt--;
    fre[a[pos]]--;
+   if(fre[a[pos]]== 0)cnt--;
 }
 signed main(){
     FASTIO;
